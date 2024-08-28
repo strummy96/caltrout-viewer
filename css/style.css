@@ -1,5 +1,10 @@
 html {
-    margin: 0 10%;
+    margin: 0 5%;
+}
+
+.dropdown-menu {
+    max-height: 400px;
+    overflow: auto;
 }
 
 #map-view {
@@ -18,4 +23,12 @@ html {
     height: 100%;
     z-index: 500;
     background-color: rgb(0,0,0,0.5);
+}
+
+#date-display {
+    font-size: 16pt;
+}
+
+path.leaflet-interactive:focus {
+    outline: none;
 }
