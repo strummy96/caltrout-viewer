@@ -1,4 +1,3 @@
-// leaflet
 let map;
 async function init_map(){
 
