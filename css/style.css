@@ -1,11 +1,19 @@
 html {
-    margin: 0 10%;
+    margin: 0 5%;
+}
+
+#layout {
+    width: 100%;
 }
 
 #map-view {
     height: 80vh;
-    width: 800px;
+    width: 50%;
 }
+
+/* #plot {
+    width: 50%;
+} */
 
 #loading-screen {
     display: none;
