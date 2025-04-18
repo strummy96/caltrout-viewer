@@ -4,6 +4,7 @@ let raster_layer;
 let year = "2024";
 let dates_2023 = ['010123', '010623', '011123', '011323', '011823', '012323', '012523', '013023', '020423', '020623', '021123', '021623', '021823', '022323', '022823', '030223', '030723', '031223', '031423', '031923', '032423', '032623', '033123', '040523', '040723', '041223', '041723', '041923', '042423', '042923', '050123', '100222', '100722', '100922', '101422', '102122', '102622', '103122', '110222', '110722', '111222', '111422', '111922', '112422', '112622', '120122', '120622', '120822', '121322', '121822', '122022', '122522', '123022'];
 let dates_2024 = ['010124', '010624', '010824', '011324', '011824', '012024', '012524', '013024', '020124', '020624', '021124', '021324', '021824', '022324', '022524', '030124', '030624', '030824', '031324', '031824', '032024', '032524', '033024', '040124', '040624', '041124', '041324', '041824', '042324', '042524', '043024', '100223', '100423', '100923', '101423', '101623', '102123', '102823', '110223', '110923', '111423', '111923', '112123', '112623', '120123', '120323', '120823', '121323', '121523', '122023', '122523', '122723'];
+let bypass_layer;
 
 async function init_map(){
 
@@ -16,6 +17,20 @@ async function init_map(){
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9">ESRI</a>'
     }).addTo(map);
+    
+    // add bypasses
+    let bp_geojson = await get_geojson('data/geojson/Flood_Bypasses.geojson')
+    bypass_layer = L.geoJSON(bp_geojson, {
+        weight: 1,
+        color: 'grey',
+        fillColor: 'lightblue',
+        fillOpacity: '0.5',
+        pane: 'base', // put it in the base pane - this way it will always be added in the right place
+        onEachFeature: function(feature, layer){
+            layer.bindTooltip(feature.properties.NAME, {sticky: true});
+        }
+    });
+    bypass_layer.addTo(map);
 
     // add fields
     let fields_geojson = await get_geojson('data/geojson/fields.geojson');
@@ -177,4 +192,16 @@ function pretty_date(date){
     let d = date.substring(0,2) + '/' + date.substring(2,4) + '/' + date.substring(4,6);
     console.log(date.substring(0,1))
     return d;
+
+function toggle_bypasses() {
+    let check_el = document.querySelector("#bypass_check");
+    
+    if (!check_el.checked) {
+        // checkbox value (true or false) updates before click event triggers, so we want to check for the new value not the old one
+        check_el.checked = false;
+        map.removeLayer(bypass_layer)
+    } else {
+        check_el.checked = true;
+        map.addLayer(bypass_layer)
+    }
 }
