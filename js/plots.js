@@ -1,3 +1,5 @@
+
+
 // test
 async function get_json(json){
     let resp = await fetch("data/json/" + json + ".json");
@@ -12,8 +14,6 @@ async function get_json(json){
 
 async function make_plot(year, field_name) {
     let data;
-    let data_2023 = await get_json("2023");
-    let data_2024 = await get_json("2024");
 
     if(year == "2023") {data = data_2023} else {data = data_2024}
     // console.log("data ", data);

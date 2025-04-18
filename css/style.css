@@ -11,9 +11,24 @@ html {
     width: 100%;
 }
 
-#map-view {
+#map-con {
     height: 80vh;
     width: 50%;
+    position: relative;
+}
+
+#map-view {
+    height: 100%;
+    width: 100%;
+}
+
+#image-timestamp {
+     position: absolute;
+     top: 10px; 
+     left: 10px; 
+     z-index: 1000;
+     background-color: rgb(255,255,255,0.5);
+     padding: 5px;
 }
 
 /* #plot {
@@ -31,4 +46,12 @@ html {
     height: 100%;
     z-index: 500;
     background-color: rgb(0,0,0,0.5);
+}
+
+#plot {
+    width: 50%;
+}
+
+path.leaflet-interactive:focus {
+    outline: none;
 }
